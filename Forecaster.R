@@ -113,15 +113,15 @@ workflow_fit_prophet_boost <- workflow() %>%
 workflow_fit_prophet_boost
 
 # Fit a GluonTS DeepAR Model
-model_fit_deepar <- deep_ar(
-  id                    = "id",
-  freq                  = "D",
-  prediction_length     = 90,
-  lookback_length       = 180,
-  epochs                = 5
-) %>%
-  set_engine("gluonts_deepar") %>%
-  fit(Close ~ ., training(splits))
+#model_fit_deepar <- deep_ar(
+#  id                    = "id",
+#  freq                  = "D",
+#  prediction_length     = 90,
+#  lookback_length       = 180,
+#  epochs                = 5
+#) %>%
+#  set_engine("gluonts_deepar") %>%
+#  fit(Close ~ ., training(splits))
 
 ### The Modeltime Workflow
 
@@ -130,8 +130,8 @@ model_table <- modeltime_table(
   model_fit_prophet,
   workflow_fit_glmnet,
   workflow_fit_rf,
-  workflow_fit_prophet_boost,
-  model_fit_deepar
+  workflow_fit_prophet_boost
+  #model_fit_deepar
 ) 
 
 model_table
