@@ -7,24 +7,29 @@ This project uses time series analysis techniques to forecast stock prices. The 
 
 # Table of Contents
 
-[Overview](Overview)
-[Features](Features)
-[Installation](Installation)
-[Usage](Usage)
-[Project Structure](Project Structure)
-[Key Technologies](Key Technologies)
-[Results](Results)
-[Contributing](Contributing)
-[License](License)
-[Acknowledgements](Acknowledgements)
+
+- [Overview](#overview)
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Project Structure](#project-structure)
+- [Key Technologies](#key-technologies)
+- [Results](#results)
+- [Contributing](#contributing)
+- [License](#license)
+- [Acknowledgements](#acknowledgements)
 
 
 
 # Features
   **1. Data Collection:** Fetches historical stock price data from a database.
+  
   **2. Data Preprocessing:** Cleans and prepares data for analysis.
+  
   **3. Time Series Forecasting:** Implements multiple forecasting models including Auto ARIMA, Prophet, Elastic Net, Random Forest, and Prophet Boost.
+  
   **4. Interactive Visualization:** Shiny app for visualizing forecast results.
+  
   **5. Model Comparison:** Allows comparing forecasts from different models and companies.
 Installation
 
