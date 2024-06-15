@@ -136,7 +136,7 @@ ui <- fluidPage(
   ),
   sidebarLayout(
     sidebarPanel(
-      style = "width: 350px; margin-top: 50px;",  # Adjusted width here
+      style = "width: 450px; margin-top: 50px;",  # Adjusted width here
       class = "sidebar",
       selectInput("company1", "Select Company 1", choices = c("Apple Inc", "Alphabet Inc.", "Microsoft Corporation, Inc.", "Tesla, Inc."), selected = NULL),
       selectInput("company2", "Select Company 2", choices = c("Apple Inc", "Alphabet Inc.", "Microsoft Corporation, Inc.", "Tesla, Inc."), selected = NULL),
@@ -155,7 +155,7 @@ ui <- fluidPage(
     mainPanel(
       div(
         class = "logo-container",
-        img(src = "logo.png", height = "100px")  # Adjust the height as needed
+        img(src = "logo.png", height = "130px")  # Adjust the height as needed
       ),
       fluidRow(
         column(6, div(plotlyOutput("plot1"), class = "plot-border")),
