@@ -25,12 +25,15 @@ fetch_data <- function(company) {
 
 unique_companies <- c("AAPL", "TSLA", "MSFT", "GOOGL")
 library(shiny)
-
 ui <- fluidPage(
   tags$head(
+    tags$link(
+      href = "https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap", 
+      rel = "stylesheet"
+    ),
     tags$style(HTML("
       body { 
-        background: url('Quant.jpeg') no-repeat center center fixed; 
+        background: url('Quant_2.jpeg') no-repeat center center fixed; 
         background-size: cover;
         color: #ffffff;
         font-family: 'Arial', sans-serif;
@@ -39,11 +42,17 @@ ui <- fluidPage(
       }
       .title-bar {
         color: #ffffff; 
-        background: linear-gradient(to right, #b8860b, #daa520);
+        background: linear-gradient(to right, #87CEEB, #00BFFF);
         padding: 15px; 
         border-radius: 10px; 
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
         text-align: center;
+        font-size: 80px;
+        font-weight: bold;
+        margin-bottom: 20px; /* Added margin */
+      }
+      .title-bar .emoji {
+        font-size: 100px; /* Increase emoji size */
       }
       .sidebar {
         width: 350px; 
@@ -52,72 +61,97 @@ ui <- fluidPage(
         border-radius: 10px; 
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
         margin-top: 20px;
+        font-size: 20px;
+        margin-bottom: 20px; /* Added margin */
       }
       .sidebar input, .sidebar select, .sidebar button {
         width: 100%;
         margin-bottom: 10px;
+        font-size: 20px;
+        font-weight: bold;
+        padding: 12px; /* Increased padding */
       }
       .sidebar button {
-        background: linear-gradient(to right, #b8860b, #daa520);
+        background: linear-gradient(to right, #87CEEB, #00BFFF);
         color: #ffffff;
         border: none;
-        padding: 10px;
+        padding: 12px;
         border-radius: 5px;
         cursor: pointer;
         transition: transform 0.2s;
+        font-size: 18px;
+        font-weight: bold;
       }
       .sidebar button:hover {
         transform: scale(1.05);
       }
       .plot-border {
-        border: 2px solid #b8860b;
+        border: 5px solid #87CEEB; /* SkyBlue color */
         border-radius: 10px;
         box-shadow: 5px 5px 10px #888888;
         margin-top: 20px;
         background-color: rgba(31, 31, 31, 0.9);
         padding: 10px;
+        margin-bottom: 20px; /* Added margin */
       }
-    .table-style {
-      font-size: 14px;
-      color: #ffffff;
-      border-collapse: collapse;
-      width: 100%;
-      border: 1px solid #2a2a2a;
-      border-radius: 5px;
-      margin-top: 20px;
-      background-color: #1a1a1a;
-    }
-
-    .table-style th, .table-style td {
-      border: 1px solid #2a2a2a;
-      text-align: left;
-      padding: 8px;
-    }
-
-    .table-style th {
-      background-color: #daa520;
-      color: #000000;
-    }
-
-    .table-style tr:nth-child(even) {
-      background-color: #262626;
-    }
-
-    .table-style tr:nth-child(odd) {
-      background-color: #1f1f1f;
-    }
-
-    .table-style tr:hover {
-      background-color: #333333;
-    }
-
-    .performance-metrics {
-      color: #b8860b;
-      font-size: 20px;
-      margin-bottom: 20px;
-    }
-      .metric-explanation {
+      .plot-title {
+        text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+        background: linear-gradient(to right, #87CEEB, #00BFFF); /* Gradient color */
+        -webkit-background-clip: text;
+        color: gold;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+        animation: title-glow 1.5s infinite alternate;
+        margin-bottom: 10px;
+      }
+      @keyframes title-glow {
+        from {
+          text-shadow: 2px 2px 4px rgba(0,0,0,0.6), 0 0 5px #87CEEB, 0 0 10px #87CEEB, 0 0 15px #87CEEB, 0 0 20px #87CEEB, 0 0 25px #87CEEB;
+        }
+        to {
+          text-shadow: 2px 2px 4px rgba(0,0,0,0.6), 0 0 10px #00BFFF, 0 0 20px #00BFFF, 0 0 30px #00BFFF, 0 0 40px #00BFFF, 0 0 50px #00BFFF;
+        }
+      }
+      .table-style {
         font-size: 14px;
+        color: #ffffff;
+        border-collapse: collapse;
+        width: 100%;
+        border: 1px solid #87CEEB;
+        border-radius: 5px;
+        margin-top: 20px;
+        background-color: #1a1a1a;
+        margin-bottom: 20px; /* Added margin */
+      }
+      .table-style th, .table-style td {
+        border: 1px solid #000000;
+        text-align: center;
+        padding: 10px; /* Increased padding */
+      }
+      .table-style th {
+        background-color: #87CEEB; /* SkyBlue header */
+        color: #000000;
+      }
+      .table-style tr:nth-child(even) {
+        background-color: #262626;
+        color: #ffffff; /* White text for even rows */
+      }
+      .table-style tr:nth-child(odd) {
+        background-color: #1f1f1f;
+        color: #000000; /* Black text for odd rows */
+      }
+      .table-style tr:hover {
+        background-color: #333333;
+      }
+      .performance-metrics {
+        color: #87CEEB; /* SkyBlue text */
+        font-size: 14px; /* Increased font size */
+        font-weight: bold; /* Added bold font weight */
+        margin-bottom: 20px;
+      }
+      .metric-explanation {
+        font-size: 16px; /* Increased font size */
         color: #b0b0b0;
       }
       .logo-container {
@@ -126,13 +160,13 @@ ui <- fluidPage(
         margin-bottom: 20px;
       }
       .logo-container img {
-        max-height: 100px;
+        max-height: 250px; /* Increased maximum height */
         width: auto;
       }
     "))
   ),
   titlePanel(
-    div(class = "title-bar", "SafeGuard")
+    div(class = "title-bar", HTML("SafeGuard <span class='emoji'>👁️👁️</span>"))
   ),
   sidebarLayout(
     sidebarPanel(
@@ -147,23 +181,19 @@ ui <- fluidPage(
       div(class = "table-style", tableOutput("metrics_table")),
       div(
         class = "metric-explanation",
-        p(strong("MAPE:"), " Mean Absolute Percentage Error"),
-        p(strong("MASE:"), " Mean Absolute Scaled Error"),
-        p(strong("RMSE:"), " Root Mean Squared Error")
+        p(strong("MAPE:"), " The more smaller the best"),
+        p(strong("MASE:"), " The more smaller the best"),
+        p(strong("RMSE:"), " The more smaller the best")
       )
     ),
     mainPanel(
-      div(
-        class = "logo-container",
-        img(src = "logo.png", height = "130px")  # Adjust the height as needed
+      fluidRow(
+        column(6, div(textOutput("title1"), class = "plot-title"), div(plotlyOutput("plot1"), class = "plot-border")),
+        column(6, div(textOutput("title2"), class = "plot-title"), div(plotlyOutput("plot2"), class = "plot-border"))
       ),
       fluidRow(
-        column(6, div(plotlyOutput("plot1"), class = "plot-border")),
-        column(6, div(plotlyOutput("plot2"), class = "plot-border"))
-      ),
-      fluidRow(
-        column(6, div(plotlyOutput("plot3"), class = "plot-border")),
-        column(6, div(plotlyOutput("plot4"), class = "plot-border"))
+        column(6, div(textOutput("title3"), class = "plot-title"), div(plotlyOutput("plot3"), class = "plot-border")),
+        column(6, div(textOutput("title4"), class = "plot-title"), div(plotlyOutput("plot4"), class = "plot-border"))
       )
     )
   )
@@ -204,6 +234,7 @@ server <- function(input, output) {
         list(forecast_results = NULL, accuracy_metric = NULL)
       } else {
         forecast_results <- calibration_table %>%
+          modeltime_refit(df) %>%
           modeltime_forecast(h = "6 months", actual_data = df)
         
         accuracy_data <- calibration_table %>%
@@ -226,40 +257,45 @@ server <- function(input, output) {
     lapply(seq_along(companies), function(i) {
       local_i <- i  
       
+      output[[paste0("title", local_i)]] <- renderText({
+        paste("Next 6 months prediction for", companies1[local_i])
+      })
+      
       output[[paste0("plot", local_i)]] <- renderPlotly({
         if (!null_tables[local_i]) {
           plot_data <- plot_modeltime_forecast(
             model_results[[local_i]]$forecast_results,
             .interactive = TRUE,
+            .conf_interval_show = TRUE,
+            .conf_interval_fill = "white",
+            .plotly_slider = TRUE,
             .facet_ncol = 1,
-            .title = paste("Forecast Plot for", companies1[local_i]),
+            .title = FALSE,
+            .legend_show = FALSE,
             .x_lab = "",
             .y_lab = ""
           )
           
+          print(plot_data)
           # Customize line colors
           plot_data <- plot_data %>%
             style(
-              traces = c(1, 2, 3),  # Adjust indices based on your plot structure
+              traces = c(1, 2, 3,4,5),  # Adjust indices based on your plot structure
               line = list(
-                color = c('purple', 'green', 'orange')  # Customize colors
+                color = c('purple', 'white', 'skyblue', 'gold','green')  # Customize colors
               )
             )
           
           # Update plot layout for better aesthetics
           plot_data <- plot_data %>%
             layout(
-              title = list(
-                text = paste("Forecast Plot for", companies1[local_i]),
-                font = list(color = '#ffffff', size = 20, family = 'Arial')
-              ),
               xaxis = list(title = "", titlefont = list(color = '#ffffff'), tickfont = list(color = '#ffffff')),
               yaxis = list(title = "", titlefont = list(color = '#ffffff'), tickfont = list(color = '#ffffff')),
               plot_bgcolor = 'rgba(0,0,0,0)',
               paper_bgcolor = 'rgba(0,0,0,0)',
-              font = list(color = '#ffffff'),
+              font = list(color = 'skyblue'),
               hovermode = 'closest',
-              legend = list(x = 0.1, y = -0.1, font = list(color = '#ffffff'), orientation = "h"),  # Adjust legend position and orientation
+              legend = list(x = 0.1, y = -0.1, font = list(color = 'black'), orientation = "h"),  # Adjust legend position and orientation
               margin = list(l = 50, r = 50, b = 50, t = 50)
             )
           
