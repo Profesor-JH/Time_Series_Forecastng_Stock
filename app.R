@@ -41,28 +41,60 @@ ui <- fluidPage(
         background-color: #121212; /* Fallback background color */
       }
       .title-bar {
-        color: #ffffff; 
-        background: linear-gradient(to right, #87CEEB, #00BFFF);
-        padding: 15px; 
-        border-radius: 10px; 
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-        text-align: center;
-        font-size: 80px;
-        font-weight: bold;
-        margin-bottom: 20px; /* Added margin */
+          position: relative;
+          display: inline-block;
+          color: #0000FF; /* Pure blue color */
+          background: linear-gradient(to right, #87CEEB, #00BFFF); /* Sky blue gradient */
+          width: 100%;
+          text-align: center;
+          font-size: 100px;
+          font-weight: bold;
+          margin-bottom: 20px; /* Added margin */
+          padding: 15px 30px; /* Increased padding for better spacing */
+          border-radius: 10px;
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+          animation: title-glow 1.5s infinite alternate; /* Adding glow animation */
+          font-family: 'Poppins', sans-serif; /* Professional font */
       }
-      .title-bar .emoji {
+      
+      .title-bar .emoji-container {
         font-size: 100px; /* Increase emoji size */
+        animation: emoji-bounce 1.5s infinite; /* Adding bounce animation to emoji */
+        color: #0000FF; /* Ensuring emoji color is visible */
+        margin-left: 10px; /* Adjust margin as needed */
       }
+      
+      @keyframes title-glow {
+          from {
+              text-shadow: 0 0 15px #87CEEB, 0 0 30px #00BFFF, 0 0 45px #87CEEB, 0 0 60px #00BFFF;
+          }
+          to {
+              text-shadow: 0 0 30px #00BFFF, 0 0 45px #87CEEB, 0 0 60px #00BFFF, 0 0 75px #87CEEB;
+          }
+      }
+      
+      @keyframes emoji-bounce {
+          0%, 20%, 50%, 80%, 100% {
+              transform: translateY(0);
+          }
+          40% {
+              transform: translateY(-20px);
+          }
+          60% {
+              transform: translateY(-10px);
+          }
+      }
+
+
       .sidebar {
         width: 350px; 
         background-color: rgba(31, 31, 31, 0.9); 
         padding: 20px;
         border-radius: 10px; 
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-        margin-top: 20px;
+        margin-bottom: 0px;
         font-size: 20px;
-        margin-bottom: 20px; /* Added margin */
+        margin-top: 10px; /* Adjusted margin top */
       }
       .sidebar input, .sidebar select, .sidebar button {
         width: 100%;
@@ -86,24 +118,51 @@ ui <- fluidPage(
         transform: scale(1.05);
       }
       .plot-border {
-        border: 5px solid #87CEEB; /* SkyBlue color */
+        border: 5px solid #1E90FF; /* SkyBlue color */
         border-radius: 10px;
         box-shadow: 5px 5px 10px #888888;
         margin-top: 20px;
-        background-color: rgba(31, 31, 31, 0.9);
+        background-color: rgba(255, 255, 255, 0.7); /* White transparent background */
+
         padding: 10px;
         margin-bottom: 20px; /* Added margin */
       }
       .plot-title {
-        text-align: center;
-        font-size: 24px;
-        font-weight: bold;
-        background: linear-gradient(to right, #87CEEB, #00BFFF); /* Gradient color */
-        -webkit-background-clip: text;
-        color: gold;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
-        animation: title-glow 1.5s infinite alternate;
-        margin-bottom: 10px;
+          position: relative;
+          display: inline-block;
+          padding: 10px 20px; /* Padding for better visual separation */
+          border-radius: 10px; /* Rounded corners */
+          text-align: center;
+          font-size: 30px; /* Increased font size for more impact */
+          
+          background: linear-gradient(to right, #87CEEB, #00BFFF); /* Gradient color */
+          -webkit-background-clip: text;
+          color: #ffffff; /* Makes the text transparent to show the gradient */
+          text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+          animation: title-glow 1.5s infinite alternate;
+          margin-bottom: 20px; /* Increased margin bottom for spacing */
+          padding: 10px; /* Added padding for better visual separation */
+          border-radius: 10px; /* Rounded corners */
+      }
+      
+      .plot-title::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: rgba(255, 255, 255, 0.7); /* White transparent background */
+          border-radius: 10px; /* Rounded corners */
+          z-index: -1; /* Place the background behind the text */
+      }
+
+      .plot-title.left-aligned {
+        text-align: left;
+      }
+      
+      .plot-title.right-aligned {
+        text-align: right;
       }
       @keyframes title-glow {
         from {
@@ -113,40 +172,52 @@ ui <- fluidPage(
           text-shadow: 2px 2px 4px rgba(0,0,0,0.6), 0 0 10px #00BFFF, 0 0 20px #00BFFF, 0 0 30px #00BFFF, 0 0 40px #00BFFF, 0 0 50px #00BFFF;
         }
       }
+
       .table-style {
-        font-size: 14px;
+        font-size: 18px;
         color: #ffffff;
-        border-collapse: collapse;
         width: 100%;
-        border: 1px solid #87CEEB;
-        border-radius: 5px;
         margin-top: 20px;
-        background-color: #1a1a1a;
         margin-bottom: 20px; /* Added margin */
       }
+      
       .table-style th, .table-style td {
-        border: 1px solid #000000;
-        text-align: center;
+        border: 1px solid #0000FF;
         padding: 10px; /* Increased padding */
       }
+      
       .table-style th {
-        background-color: #87CEEB; /* SkyBlue header */
-        color: #000000;
+        background-color: #87CEEB; /* Blue header */
+        color: #0000FF;
+        font-weight: bold;
+        
       }
+      
+      .table-style td:first-child {
+        text-align: left; /* Left-align the first column */
+      }
+      
+      .table-style td {
+        text-align: center; /* Center-align other columns */
+      }
+      
       .table-style tr:nth-child(even) {
-        background-color: #262626;
-        color: #ffffff; /* White text for even rows */
+        background-color: #87CEEB;
+        color: #000000; /* White text for even rows */
       }
+      
       .table-style tr:nth-child(odd) {
         background-color: #1f1f1f;
-        color: #000000; /* Black text for odd rows */
+        color: #000000; /* blue text for odd rows */
       }
+      
       .table-style tr:hover {
         background-color: #333333;
       }
+      
       .performance-metrics {
         color: #87CEEB; /* SkyBlue text */
-        font-size: 14px; /* Increased font size */
+        font-size: 20px; /* Increased font size */
         font-weight: bold; /* Added bold font weight */
         margin-bottom: 20px;
       }
@@ -166,17 +237,17 @@ ui <- fluidPage(
     "))
   ),
   titlePanel(
-    div(class = "title-bar", HTML("SafeGuard <span class='emoji'>👁️👁️</span>"))
+    div(class = "title-bar", HTML("S.a.f.e.G.u.a.r.d <span class='emoji'>👁️👁️</span>"))
   ),
   sidebarLayout(
     sidebarPanel(
-      style = "width: 450px; margin-top: 50px;",  # Adjusted width here
+      style = "width: 540px; margin-top: 50px;",  # Adjusted width here
       class = "sidebar",
       selectInput("company1", "Select Company 1", choices = c("Apple Inc", "Alphabet Inc.", "Microsoft Corporation, Inc.", "Tesla, Inc."), selected = NULL),
       selectInput("company2", "Select Company 2", choices = c("Apple Inc", "Alphabet Inc.", "Microsoft Corporation, Inc.", "Tesla, Inc."), selected = NULL),
       selectInput("company3", "Select Company 3", choices = c("Apple Inc", "Alphabet Inc.", "Microsoft Corporation, Inc.", "Tesla, Inc."), selected = NULL),
       selectInput("company4", "Select Company 4", choices = c("Apple Inc", "Alphabet Inc.", "Microsoft Corporation, Inc.", "Tesla, Inc."), selected = NULL),
-      actionButton("submit", "Submit"),
+      actionButton("submit", "Submit", style = "color: #0000FF;"),
       div(class = "performance-metrics", strong("📊 Performance Metrics")),
       div(class = "table-style", tableOutput("metrics_table")),
       div(
@@ -258,44 +329,62 @@ server <- function(input, output) {
       local_i <- i  
       
       output[[paste0("title", local_i)]] <- renderText({
-        paste("Next 6 months prediction for", companies1[local_i])
+        paste("Forecasts for", companies1[local_i])
       })
+      
+      
       
       output[[paste0("plot", local_i)]] <- renderPlotly({
         if (!null_tables[local_i]) {
+          updated_forecast_results <- model_results[[local_i]]$forecast_results %>%
+            mutate(.model_desc = ifelse(.model_desc == "PROPHET", "FORECAST", .model_desc))
+          #print(unique(updated_forecast_results)$.conf_lo)
           plot_data <- plot_modeltime_forecast(
-            model_results[[local_i]]$forecast_results,
+            updated_forecast_results,
             .interactive = TRUE,
             .conf_interval_show = TRUE,
             .conf_interval_fill = "white",
-            .plotly_slider = TRUE,
+            #.plotly_slider = TRUE,
             .facet_ncol = 1,
             .title = FALSE,
-            .legend_show = FALSE,
+            .legend_show = TRUE,
             .x_lab = "",
             .y_lab = ""
           )
           
-          print(plot_data)
-          # Customize line colors
+          
+          # Customize line colors and names
           plot_data <- plot_data %>%
             style(
-              traces = c(1, 2, 3,4,5),  # Adjust indices based on your plot structure
+              traces = c(1,2,3,4),  # Adjust indices based on your plot structure
               line = list(
-                color = c('purple', 'white', 'skyblue', 'gold','green')  # Customize colors
+                #color = c('gold', 'yellow', 'yellow', 'yellow'),  # Customize colors for each trace
+                width = c(3.5, 3.5, 3.5, 3.5)  # Customize line widths if needed
               )
             )
           
           # Update plot layout for better aesthetics
           plot_data <- plot_data %>%
             layout(
-              xaxis = list(title = "", titlefont = list(color = '#ffffff'), tickfont = list(color = '#ffffff')),
-              yaxis = list(title = "", titlefont = list(color = '#ffffff'), tickfont = list(color = '#ffffff')),
+              xaxis = list(
+                title = "", 
+                titlefont = list(color = '#000000', family = 'Arial', size = 14, bold = TRUE), 
+                tickfont = list(color = '#000000', family = 'Arial', size = 10, bold = FALSE),
+                tickformat = "%d-%b-%Y" # Format dates with more granularity
+                #tickmode = "linear",      # Ensures even tick spacing
+                #dtick = "M3",             # Shows every month
+                #tickangle = 90
+              ),
+              yaxis = list(
+                title = "", 
+                titlefont = list(color = '#000000', family = 'Arial', size = 14, bold = TRUE), 
+                tickfont = list(color = '#000000', family = 'Arial', size = 12, bold = TRUE)
+              ),
               plot_bgcolor = 'rgba(0,0,0,0)',
               paper_bgcolor = 'rgba(0,0,0,0)',
-              font = list(color = 'skyblue'),
+              font = list(color = 'gold'),
               hovermode = 'closest',
-              legend = list(x = 0.1, y = -0.1, font = list(color = 'black'), orientation = "h"),  # Adjust legend position and orientation
+              legend = list(x = 0.2, y = 1.2, font = list(color = 'blue'), orientation = "h"),  # Adjust legend position and orientation
               margin = list(l = 50, r = 50, b = 50, t = 50)
             )
           
