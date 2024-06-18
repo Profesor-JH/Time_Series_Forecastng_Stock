@@ -3,7 +3,7 @@
 # Overview
 This project uses time series analysis techniques to forecast stock prices. The forecasting models can predict future stock prices based on historical data. The project includes an interactive Shiny app for visualizing and comparing the forecasted prices for different companies.
 
-**watch a demo here :** https://www.youtube.com/watch?v=cWBs3vQQGeQ
+**watch a demo here :** https://youtu.be/B9C_Do6HUic?si=oewpIVi-HFqAYHps
 
 # Table of Contents
 
